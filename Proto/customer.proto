@@ -1,0 +1,41 @@
+syntax = "proto2";
+
+message customerData {
+    required string taxvat = 2;
+    optional string name = 3;
+    optional string dob = 4;
+    optional string email = 5;
+    optional string telephone = 6;
+    optional string cellphone = 7;
+    optional string createdAt = 8;
+    optional string updatedAt = 9;
+}
+
+message customerCreated {
+    required string taxvat = 1;
+    required string name = 2;
+    required string dob = 3;
+    required string email = 4;
+    required string telephone = 5;
+    required string cellphone = 6;
+}
+
+message customerRemoved {
+    required bool is_removed  = 1;
+}
+
+message customerByEmail {
+    required string email = 1;
+}
+
+message customerByTaxVat {
+    required string taxvat = 1;
+}
+
+service CustomerService {
+    rpc Create(customerCreated) returns (customerData) {}
+    rpc Update(customerData) returns (customerData) {}
+    rpc Delete(customerByTaxVat) returns (customerRemoved) {}
+    rpc GetByTaxvat(customerByTaxVat) returns (customerData) {}
+    rpc GetByEmail(customerByEmail) returns (customerData) {}
+}
